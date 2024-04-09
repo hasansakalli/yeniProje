@@ -5,6 +5,7 @@ Description: |
   security group which allows http connections on port 80 and ssh port 22 from anywhere. Kittens Carousel Static Website
   is downloaded from my Public Github repository, then deployed on Apache Web Server.
 Parameters:
+   
   imageID:
     Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
     Default: '/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64'
@@ -25,7 +26,7 @@ Parameters:
 
 Resources:
   
-  mySecGrp:
+  mySecGrp:   # EC2 security group
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: allows ssh and http (22 and 80 port) # Required
@@ -37,7 +38,7 @@ Resources:
           IpProtocol: tcp
 
 
-  myWebServer:
+  myWebServer:  # EC2- instance
     Type: AWS::EC2::Instance
     Properties:
       ImageId: !Ref imageID
@@ -48,11 +49,11 @@ Resources:
       Tags: 
         - Key: Name
           Value: !Sub Web Server of ${AWS::StackName}
-      UserData: !Base64 
+      UserData: !Base64 |
         #! /bin/bash
         dnf update -y
         dnf install httpd -y
-        FOLDER="https://raw.githubusercontent.com/hasansakalli/clarusway-aws-devops-DE-tr-08/main/AWS/projects/101-kittens-carousel-static-website-ec2/static-web/"
+        FOLDER="https://raw.githubusercontent.com/hasansakalli/yeniProje/main/101-kittens-carousel-static-website-ec2/static-web/"
         cd /var/www/html
         wget ${FOLDER}/index.html
         wget ${FOLDER}/cat0.jpg

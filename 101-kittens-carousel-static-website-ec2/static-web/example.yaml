@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion:  CloudFormation şablonunun AWS şablon formatı sürümünü belirtir.
+ Bu belirli sürüm, kullanılan CloudFormation özelliklerini ve sözdizimini belirler.
+Description: Şablonun amacını açıklar.
+ Bu açıklama Kittens Carousel adlı statik web sitesinin EC2 üzerinde nasıl çalıştırılacağını özetler. 
+  
+Parameters:(Parametreler): Bu bölüm, CloudFormation şablonunun dışarıdan alabileceği parametreleri tanımlar. Parametreler, 
+şablonun farklı senaryolara veya gereksinimlere uyarlanmasını sağlar.
+  imageID:(Görüntü Kimliği): Bu parametre, kullanılacak Amazon Machine Image (AMI)'yi belirler.
+ Varsayılan olarak en son Amazon Linux 2023 AMI'sini kullanır.
+    
+
+  keyPair:(Anahtar Çifti): Bu parametre, EC2 örneğine SSH erişimi için kullanılacak bir anahtar çiftini belirler.
+    
+
+  instanceType:(Örnek Türü): Bu parametre, EC2 örneğinin türünü belirler.
+   Kullanıcıların şablonu kullanırken seçebileceği örneğin boyutunu ve özelliklerini tanımlar.
+   
+
+Resources:(Kaynaklar): Bu bölüm, şablonun oluşturacağı AWS kaynaklarını tanımlar.
+  
+  mySecGrp: (Güvenlik Grubum): Bu kaynak, EC2 örneği için bir güvenlik grubu oluşturur. 
+  Bu güvenlik grubu, gelen SSH ve HTTP trafiğine izin veren özel bir yapılandırmaya sahiptir.
+    
+
+
+  myWebServer:(Web Sunucusu): Bu kaynak, Kittens Carousel statik web sitesini barındırmak için bir EC2 örneği oluşturur. Oluşturulan örnek, belirtilen AMI'yi kullanır,
+   belirtilen anahtar çiftini ve güvenlik grubunu kullanır ve Apache Web Sunucusu'nun yüklü olduğu özel bir başlatma betiği çalıştırır.
+    
+ 
+Outputs:(Çıktılar): Bu bölüm, şablonun tamamlanmasından sonra kullanıcıya sunulan bilgileri tanımlar. 
+Bu durumda, oluşturulan web sitesinin URL'sini çıktı olarak gösterir.
+  
+        
